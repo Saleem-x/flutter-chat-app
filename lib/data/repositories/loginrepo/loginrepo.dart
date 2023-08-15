@@ -13,6 +13,7 @@ class LoginRepoImpl implements ILoginRepo {
   @override
   Future<Either<MainFailures, String>> login(LoginModel loginModel) async {
     try {
+      await FirebaseAuth.instance.signOut();
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: loginModel.email!,

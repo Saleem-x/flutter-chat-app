@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chatapp/data/failures/failures.dart';
 import 'package:chatapp/data/models/createuser/createuser.dart';
 import 'package:chatapp/data/repositories/repositories.dart';
@@ -16,12 +18,14 @@ class CreateContactRepo implements ICreatUserRepo {
       await FirebaseFirestore.instance
           .collection('Contacts')
           .doc(userid)
-          .set(createuser.toJson())
-          // ignore: void_checks
-          .onError((error, stackTrace) {
-        return left(const MainFailures.clientfailure());
+          .collection('user-contacts')
+          .add(
+            (createuser.toJson()),
+          )
+          .then((value) {
+        return right('success');
       });
-      return right('sucess');
+      return right('success');
     } catch (e) {
       return left(const MainFailures.clientfailure());
     }

@@ -1,5 +1,6 @@
 import 'package:chatapp/data/failures/failures.dart';
 import 'package:chatapp/data/models/createuser/createuser.dart';
+import 'package:chatapp/data/models/get_contacts_model/get_contacts_model.dart';
 import 'package:chatapp/data/models/login_model/login_model.dart';
 import 'package:chatapp/data/models/signup/signup_model/signup_model.dart';
 import 'package:dartz/dartz.dart';
@@ -15,4 +16,8 @@ abstract class ILoginRepo {
 
 abstract class ICreatUserRepo {
   Future<Either<MainFailures, String>> creatcontact(Createuser createuser);
+}
+
+abstract class IGetContactsrepo {
+  Future<Either<MainFailures, List<GetContactsModel>>> getallcontacts();
 }

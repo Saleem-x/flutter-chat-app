@@ -1,10 +1,11 @@
 import 'package:chatapp/buisnesslogic/bloc/login/login_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/signup/signup_bloc.dart';
+import 'package:chatapp/buisnesslogic/bloc/splashscreen/splashscreen_bloc.dart';
 import 'package:chatapp/buisnesslogic/cubit/cubit/createchat_cubit.dart';
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/di/injectable.dart';
 import 'package:chatapp/firebase_options.dart';
-import 'package:chatapp/presentation/common/welcomescreen.dart';
+import 'package:chatapp/presentation/common/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getit<CreatechatCubit>(),
         ),
+        BlocProvider<SplashscreenBloc>(
+          create: (context) => SplashscreenBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -39,7 +43,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: primarycolor),
           useMaterial3: true,
         ),
-        home: const WelcomeScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
