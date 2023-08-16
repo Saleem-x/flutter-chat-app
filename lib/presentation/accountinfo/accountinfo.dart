@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:chatapp/buisnesslogic/bloc/accountinfo/accountinfo_bloc.dart';
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/account_info/account_info.dart';
-import 'package:chatapp/presentation/common/splashscreen.dart';
 import 'package:chatapp/presentation/common/welcomescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';

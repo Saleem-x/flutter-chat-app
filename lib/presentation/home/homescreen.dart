@@ -1,12 +1,10 @@
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/users_model/users_model.dart';
-import 'package:chatapp/data/repositories/connectivity/connectivityrepo.dart';
 import 'package:chatapp/data/repositories/getallchatsrepo/getallchatsrepo.dart';
 import 'package:chatapp/presentation/accountinfo/accountinfo.dart';
 import 'package:chatapp/presentation/chat/chatscreen.dart';
 import 'package:chatapp/presentation/newchat/newchatscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
