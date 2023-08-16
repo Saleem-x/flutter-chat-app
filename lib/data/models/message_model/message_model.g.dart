@@ -13,7 +13,8 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
       date: json['date'] as String?,
       toEmail: json['tomail'] as String?,
       uid: json['uid'] as String?,
-    )..chatid = json['chat-id'] as String?;
+      chatid: json['chat-id'] as String?,
+    );
 
 Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
     <String, dynamic>{

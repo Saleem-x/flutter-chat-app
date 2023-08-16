@@ -11,6 +11,7 @@ GetContactsModel _$GetContactsModelFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String?,
       email: json['email'] as String?,
       profileimg: json['profile'] as String?,
+      chatid: json['chat-id'] as String?,
     );
 
 Map<String, dynamic> _$GetContactsModelToJson(GetContactsModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$GetContactsModelToJson(GetContactsModel instance) =>
       'username': instance.username,
       'email': instance.email,
       'profile': instance.profileimg,
+      'chat-id': instance.chatid,
     };

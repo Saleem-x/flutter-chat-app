@@ -30,6 +30,7 @@ environment:
 dependencies:
   bloc: ^8.1.2
   cloud_firestore: ^4.8.4
+  connectivity_plus: ^4.0.2
   crypto: ^3.0.3
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
@@ -46,6 +47,7 @@ dependencies:
   google_fonts: ^5.1.0
   grouped_list: ^5.1.2
   iconsax: ^0.0.8
+  image_picker: ^1.0.2
   injectable: ^2.2.0
   injectable_generator: ^2.3.0
   intl: ^0.18.1

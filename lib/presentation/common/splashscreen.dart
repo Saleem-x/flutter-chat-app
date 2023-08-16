@@ -13,7 +13,11 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<SplashscreenBloc, SplashscreenState>(
       listener: (context, state) {
         state.when(
-          () => null,
+          () {
+            context
+                .read<SplashscreenBloc>()
+                .add(const SplashscreenEvent.checkuserin());
+          },
           userinstate: (userin) async {
             if (userin == true) {
               Navigator.pushAndRemoveUntil(

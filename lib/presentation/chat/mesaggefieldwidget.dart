@@ -74,7 +74,11 @@ class _MessageFieldWidgetState extends State<MessageFieldWidget> {
                             time:
                                 '${DateTime.now().hour}:${DateTime.now().minute}',
                             toEmail: widget.tomail,
-                            uid: FirebaseAuth.instance.currentUser!.uid),
+                            uid: FirebaseAuth.instance.currentUser!.uid,
+                            chatid: widget.uniqueid,
+                            fromuser: FirebaseAuth.instance.currentUser!.email!
+                                .split('@')
+                                .toList()[0]),
                         uniqueid: widget.uniqueid),
                   );
               _messagecontroller.clear();

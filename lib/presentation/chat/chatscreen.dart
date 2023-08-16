@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/message_model/message_model.dart';
 import 'package:chatapp/data/repositories/messages/messagesrepo.dart';
+import 'package:chatapp/data/repositories/userstatus/userstatusrepo.dart';
 import 'package:chatapp/presentation/chat/mesaggefieldwidget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
@@ -36,6 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final MessagesRepo messageRepo = MessagesRepo();
     final size = MediaQuery.of(context).size;
+    final userstatusrepo = UserStatusRepo();
 
     return Scaffold(
       appBar: AppBar(
@@ -49,6 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
             )),
         backgroundColor: primarycolor,
         title: ListTile(
+          contentPadding: const EdgeInsets.all(0),
           leading: CircleAvatar(
             radius: 20,
             child: ClipOval(
@@ -61,10 +63,14 @@ class _ChatScreenState extends State<ChatScreen> {
             widget.username,
             style: kfontstyle(color: kcolorwhite),
           ),
-          subtitle: Text(
-            'status',
-            style: kfontstyle(color: kcolorwhite),
-          ),
+          subtitle: StreamBuilder(
+              stream: userstatusrepo.getuserstatus(widget.tomail),
+              builder: (context, status) {
+                return Text(
+                  status.data ?? 'offline',
+                  style: kfontstyle(color: kcolorwhite),
+                );
+              }),
         ),
       ),
       body: Column(children: [
@@ -72,24 +78,16 @@ class _ChatScreenState extends State<ChatScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: StreamBuilder(
-              stream: messageRepo.getMessageStream(
-                  widget.tomail, '3a22c3ed80142ab0d5d9776c39326ad6ed4371d4'
-                  /* widget.uniqueid ??
-                      generateUniqueId(
-                          FirebaseAuth.instance.currentUser!.email!,
-                          widget.tomail) */
-                  ),
+              stream:
+                  messageRepo.getMessageStream(widget.tomail, widget.uniqueid),
               builder: (context, snapshot) {
+                log(widget.uniqueid!);
                 return snapshot.connectionState == ConnectionState.active
                     ? GroupedListView<MessageModel, DateTime>(
                         reverse: true,
                         order: GroupedListOrder.DESC,
                         elements: snapshot.data!,
                         groupBy: (element) => DateTime.now(),
-                        // groupHeaderBuilder: (element) => SizedBox(
-                        //   height: 40,
-                        //   child: Card(child: Text(element.date!)),
-                        // ),
                         itemBuilder: (context, element) {
                           return Align(
                             alignment: element.uid ==
@@ -138,8 +136,7 @@ class _ChatScreenState extends State<ChatScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: MessageFieldWidget(
-              tomail: widget.tomail,
-              uniqueid: '3a22c3ed80142ab0d5d9776c39326ad6ed4371d4'
+              tomail: widget.tomail, uniqueid: widget.uniqueid!
               /*  widget.uniqueid ??
                   generateUniqueId(FirebaseAuth.instance.currentUser!.email!,
                       widget.tomail) */

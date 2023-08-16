@@ -51,7 +51,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           userName: _usernamecontroller.text,
                           email: _emailcontroller.text,
                           password: _passcontroller.text)));
-                } else {
+                } else if (isUserexist) {
                   ScaffoldMessenger.of(context)
                     ..removeCurrentSnackBar()
                     ..showSnackBar(SnackBar(

@@ -1,3 +1,4 @@
+import 'package:chatapp/buisnesslogic/bloc/accountinfo/accountinfo_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/getcontacts/getcontacts_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/login/login_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/messages/messages_bloc.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<MessagesBloc>(),
+        ),
+        BlocProvider<AccountinfoBloc>(
+          create: (context) => AccountinfoBloc(),
         ),
       ],
       child: MaterialApp(

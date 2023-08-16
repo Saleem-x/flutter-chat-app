@@ -17,13 +17,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<_userloginevent>((event, emit) async {
       Either<MainFailures, String> userlogin =
           await loginRepo.login(event.loginModel);
-      emit(userlogin.fold((l) => const _failedstate(), (r) {
+      emit(userlogin.fold((l) {
+        return const _failedstate();
+      }, (r) {
         if (r == 'password Not matching') {
           return const _passwordnotmatchingstate();
         } else if (r == 'No User Exist in this email') {
           return const _usernotfoundstate(isUserexist: true);
         } else if (r == 'success') {
           return const _successstate();
+        } else if (r == 'Network failure') {
+          return const _$_failedstate();
         } else {
           return const _failedstate();
         }

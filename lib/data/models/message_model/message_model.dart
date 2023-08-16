@@ -18,6 +18,8 @@ class MessageModel {
   String? uid;
   @JsonKey(name: 'chat-id')
   String? chatid;
+  @JsonKey(name: 'fromuser')
+  String? fromuser;
 
   MessageModel(
       {this.message,
@@ -26,7 +28,8 @@ class MessageModel {
       this.date,
       this.toEmail,
       this.uid,
-      this.chatid});
+      this.chatid,
+      this.fromuser});
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return _$MessageModelFromJson(json);

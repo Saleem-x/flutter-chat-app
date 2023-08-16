@@ -1,15 +1,15 @@
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/users_model/users_model.dart';
+import 'package:chatapp/data/repositories/connectivity/connectivityrepo.dart';
 import 'package:chatapp/data/repositories/getallchatsrepo/getallchatsrepo.dart';
+import 'package:chatapp/presentation/accountinfo/accountinfo.dart';
 import 'package:chatapp/presentation/chat/chatscreen.dart';
-import 'package:chatapp/presentation/common/splashscreen.dart';
 import 'package:chatapp/presentation/newchat/newchatscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../data/repositories/messages/messagesrepo.dart';
 
 class ChatHomeScreen extends StatefulWidget {
@@ -34,8 +34,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
           .collection('userstatus')
           .doc(FirebaseAuth.instance.currentUser!.email)
           .set({'status': 'online'});
-    }
-    {
+    } else {
       await FirebaseFirestore.instance
           .collection('userstatus')
           .doc(FirebaseAuth.instance.currentUser!.email)
@@ -47,6 +46,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final MessagesRepo messageRepo = MessagesRepo();
+    // final connectivityrepo = Connectivityrepo();
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -67,16 +67,11 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
             actions: [
               IconButton(
                 onPressed: () async {
-                  FirebaseAuth.instance.signOut();
-                  final sharedprefs = await SharedPreferences.getInstance();
-                  sharedprefs.setBool('userin', false);
-                  // ignore: use_build_context_synchronously
-                  Navigator.pushAndRemoveUntil(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SplashScreen(),
-                      ),
-                      (route) => false);
+                        builder: (context) => const AccountInfoScreen(),
+                      ));
                 },
                 icon: const Icon(
                   Iconsax.user,
@@ -91,6 +86,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
                 builder: (context, snapshot) {
                   return snapshot.connectionState == ConnectionState.active
                       ? ListView.separated(
+                          padding: const EdgeInsets.all(0),
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
@@ -133,9 +129,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
                                           snapshot.data![index].tomail!,
                                           snapshot.data![index].chatid
                                           /* widget.uniqueid ??
-                      generateUniqueId(
-                          FirebaseAuth.instance.currentUser!.email!,
-                          widget.tomail) */
+                    generateUniqueId(
+                        FirebaseAuth.instance.currentUser!.email!,
+                        widget.tomail) */
                                           ),
                                       builder: (context, lastmessage) {
                                         return Text(lastmessage.data == null

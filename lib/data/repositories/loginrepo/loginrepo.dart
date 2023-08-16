@@ -34,6 +34,9 @@ class LoginRepoImpl implements ILoginRepo {
       } else if (e.toString() ==
           '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
         return left(const Serverfailure());
+      } else if (e.toString() ==
+          '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
+        return right('Network failure');
       } else {
         return right('No User Exist in this email');
       }
