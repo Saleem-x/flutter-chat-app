@@ -169,7 +169,7 @@ mixin _$GetcontactsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(List<GetContactsModel> contactlist)
+    required TResult Function(List<GetContactsModel>? contactlist)
         hasContactState,
     required TResult Function() errorstate,
   }) =>
@@ -177,14 +177,14 @@ mixin _$GetcontactsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult? Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult? Function()? errorstate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult Function()? errorstate,
     required TResult orElse(),
   }) =>
@@ -270,7 +270,7 @@ class _$_GetcontactsState implements _GetcontactsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(List<GetContactsModel> contactlist)
+    required TResult Function(List<GetContactsModel>? contactlist)
         hasContactState,
     required TResult Function() errorstate,
   }) {
@@ -281,7 +281,7 @@ class _$_GetcontactsState implements _GetcontactsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult? Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult? Function()? errorstate,
   }) {
     return $default?.call();
@@ -291,7 +291,7 @@ class _$_GetcontactsState implements _GetcontactsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult Function()? errorstate,
     required TResult orElse(),
   }) {
@@ -346,7 +346,7 @@ abstract class _$$_hasContactStateCopyWith<$Res> {
           _$_hasContactState value, $Res Function(_$_hasContactState) then) =
       __$$_hasContactStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<GetContactsModel> contactlist});
+  $Res call({List<GetContactsModel>? contactlist});
 }
 
 /// @nodoc
@@ -360,13 +360,13 @@ class __$$_hasContactStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? contactlist = null,
+    Object? contactlist = freezed,
   }) {
     return _then(_$_hasContactState(
-      contactlist: null == contactlist
+      contactlist: freezed == contactlist
           ? _value._contactlist
           : contactlist // ignore: cast_nullable_to_non_nullable
-              as List<GetContactsModel>,
+              as List<GetContactsModel>?,
     ));
   }
 }
@@ -374,15 +374,17 @@ class __$$_hasContactStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_hasContactState implements _hasContactState {
-  const _$_hasContactState({required final List<GetContactsModel> contactlist})
+  const _$_hasContactState({required final List<GetContactsModel>? contactlist})
       : _contactlist = contactlist;
 
-  final List<GetContactsModel> _contactlist;
+  final List<GetContactsModel>? _contactlist;
   @override
-  List<GetContactsModel> get contactlist {
+  List<GetContactsModel>? get contactlist {
+    final value = _contactlist;
+    if (value == null) return null;
     if (_contactlist is EqualUnmodifiableListView) return _contactlist;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_contactlist);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -413,7 +415,7 @@ class _$_hasContactState implements _hasContactState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(List<GetContactsModel> contactlist)
+    required TResult Function(List<GetContactsModel>? contactlist)
         hasContactState,
     required TResult Function() errorstate,
   }) {
@@ -424,7 +426,7 @@ class _$_hasContactState implements _hasContactState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult? Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult? Function()? errorstate,
   }) {
     return hasContactState?.call(contactlist);
@@ -434,7 +436,7 @@ class _$_hasContactState implements _hasContactState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult Function()? errorstate,
     required TResult orElse(),
   }) {
@@ -481,9 +483,10 @@ class _$_hasContactState implements _hasContactState {
 
 abstract class _hasContactState implements GetcontactsState {
   const factory _hasContactState(
-      {required final List<GetContactsModel> contactlist}) = _$_hasContactState;
+          {required final List<GetContactsModel>? contactlist}) =
+      _$_hasContactState;
 
-  List<GetContactsModel> get contactlist;
+  List<GetContactsModel>? get contactlist;
   @JsonKey(ignore: true)
   _$$_hasContactStateCopyWith<_$_hasContactState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -528,7 +531,7 @@ class _$_errorstate implements _errorstate {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(List<GetContactsModel> contactlist)
+    required TResult Function(List<GetContactsModel>? contactlist)
         hasContactState,
     required TResult Function() errorstate,
   }) {
@@ -539,7 +542,7 @@ class _$_errorstate implements _errorstate {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult? Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult? Function()? errorstate,
   }) {
     return errorstate?.call();
@@ -549,7 +552,7 @@ class _$_errorstate implements _errorstate {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(List<GetContactsModel> contactlist)? hasContactState,
+    TResult Function(List<GetContactsModel>? contactlist)? hasContactState,
     TResult Function()? errorstate,
     required TResult orElse(),
   }) {

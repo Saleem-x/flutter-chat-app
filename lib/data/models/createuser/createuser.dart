@@ -8,8 +8,12 @@ class Createuser {
   String? username;
   @JsonKey(name: 'email')
   String? email;
+  @JsonKey(name: 'profile')
+  String? profileimg;
+  @JsonKey(name: 'chat-id')
+  String? chatid;
 
-  Createuser({this.username, this.email});
+  Createuser({this.username, this.email, this.profileimg, this.chatid});
 
   factory Createuser.fromJson(Map<String, dynamic> json) {
     return _$CreateuserFromJson(json);

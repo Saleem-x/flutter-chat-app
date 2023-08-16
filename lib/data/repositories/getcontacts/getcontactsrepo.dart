@@ -4,7 +4,9 @@ import 'package:chatapp/data/repositories/repositories.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: IGetContactsrepo)
 class GetContactsRepo implements IGetContactsrepo {
   @override
   Future<Either<MainFailures, List<GetContactsModel>>> getallcontacts() async {

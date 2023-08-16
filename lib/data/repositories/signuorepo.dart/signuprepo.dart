@@ -24,7 +24,7 @@ class SignupRepoImpl implements ISignupRepo {
       } else {
         final sharedprefs = await SharedPreferences.getInstance();
         sharedprefs.setBool('userin', true);
-        await firestore.collection('users').doc(user.uid).set({
+        await firestore.collection('users').doc(user.email).set({
           'name': signupModel.userName,
           'profileimage': 'no-img',
         });

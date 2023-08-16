@@ -1,7 +1,9 @@
+import 'package:chatapp/buisnesslogic/bloc/getcontacts/getcontacts_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/login/login_bloc.dart';
+import 'package:chatapp/buisnesslogic/bloc/messages/messages_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/signup/signup_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/splashscreen/splashscreen_bloc.dart';
-import 'package:chatapp/buisnesslogic/cubit/cubit/createchat_cubit.dart';
+import 'package:chatapp/buisnesslogic/cubit/createcontact/createchat_cubit.dart';
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/di/injectable.dart';
 import 'package:chatapp/firebase_options.dart';
@@ -35,6 +37,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SplashscreenBloc>(
           create: (context) => SplashscreenBloc(),
+        ),
+        BlocProvider(
+          create: (context) => getit<GetcontactsBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<MessagesBloc>(),
         ),
       ],
       child: MaterialApp(

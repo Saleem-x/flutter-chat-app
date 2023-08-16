@@ -9,10 +9,12 @@ part of 'createuser.dart';
 Createuser _$CreateuserFromJson(Map<String, dynamic> json) => Createuser(
       username: json['username'] as String?,
       email: json['email'] as String?,
+      profileimg: json['profile'] as String?,
     );
 
 Map<String, dynamic> _$CreateuserToJson(Createuser instance) =>
     <String, dynamic>{
       'username': instance.username,
       'email': instance.email,
+      'profile': instance.profileimg,
     };

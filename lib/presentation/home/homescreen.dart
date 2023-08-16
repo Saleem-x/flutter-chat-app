@@ -1,21 +1,59 @@
 import 'package:chatapp/constents/constents.dart';
+import 'package:chatapp/data/models/users_model/users_model.dart';
+import 'package:chatapp/data/repositories/getallchatsrepo/getallchatsrepo.dart';
+import 'package:chatapp/presentation/chat/chatscreen.dart';
+import 'package:chatapp/presentation/common/splashscreen.dart';
 import 'package:chatapp/presentation/newchat/newchatscreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ChatHomeScreen extends StatelessWidget {
+import '../../data/repositories/messages/messagesrepo.dart';
+
+class ChatHomeScreen extends StatefulWidget {
   const ChatHomeScreen({super.key});
+
+  @override
+  State<ChatHomeScreen> createState() => _ChatHomeScreenState();
+}
+
+class _ChatHomeScreenState extends State<ChatHomeScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      await FirebaseFirestore.instance
+          .collection('userstatus')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .set({'status': 'online'});
+    }
+    {
+      await FirebaseFirestore.instance
+          .collection('userstatus')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .set({'status': 'offline'});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final MessagesRepo messageRepo = MessagesRepo();
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             floating: true,
             snap: true,
-            // pinned: true,
+            pinned: true,
             expandedHeight: size.height * 0.08,
             backgroundColor: primarycolor,
             title: Text(
@@ -28,34 +66,98 @@ class ChatHomeScreen extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  FirebaseAuth.instance.signOut();
+                  final sharedprefs = await SharedPreferences.getInstance();
+                  sharedprefs.setBool('userin', false);
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SplashScreen(),
+                      ),
+                      (route) => false);
+                },
                 icon: const Icon(
                   Iconsax.user,
                   color: kcolorwhite,
                 ),
               ),
             ],
-            // bottom: const PreferredSize(
-            //   preferredSize: Size.fromHeight(50),
-            //   child: TabBar(
-            //     tabs: [
-            //       Padding(
-            //         padding: EdgeInsets.only(right: 35.0),
-            //         child: Tab(
-            //           text: 'Direct Messages',
-            //         ),
-            //       ),
-            //       Padding(
-            //         padding: EdgeInsets.only(left: 35.0),
-            //         child: Tab(
-            //           text: 'Groups',
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ),
-          SliverToBoxAdapter()
+          SliverToBoxAdapter(
+            child: StreamBuilder<List<UsersModel>>(
+                stream: GetAllChatRepo().getUsersStream(),
+                builder: (context, snapshot) {
+                  return snapshot.connectionState == ConnectionState.active
+                      ? ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatScreen(
+                                      tomail: snapshot.data![index].tomail!,
+                                      username: snapshot.data![index].name!,
+                                      imageurl:
+                                          snapshot.data![index].profileimage,
+                                      uniqueid: snapshot.data![index].chatid ??
+                                          generateUniqueId(
+                                              FirebaseAuth
+                                                  .instance.currentUser!.email!,
+                                              snapshot.data![index].tomail!),
+                                    ),
+                                  ),
+                                );
+                              },
+                              leading: CircleAvatar(
+                                radius: 30,
+                                child: ClipOval(
+                                  child: snapshot.data![index].profileimage ==
+                                          'no-img'
+                                      ? Image.asset(
+                                          'assets/images/profiletemp.jpg')
+                                      : Image.network(
+                                          snapshot.data![index].profileimage!),
+                                ),
+                              ),
+                              title: Text(snapshot.data![index].name ?? 'user'),
+                              subtitle: snapshot.connectionState ==
+                                      ConnectionState.waiting
+                                  ? const Text('data')
+                                  : StreamBuilder(
+                                      stream: messageRepo.getMessageStream(
+                                          snapshot.data![index].tomail!,
+                                          snapshot.data![index].chatid
+                                          /* widget.uniqueid ??
+                      generateUniqueId(
+                          FirebaseAuth.instance.currentUser!.email!,
+                          widget.tomail) */
+                                          ),
+                                      builder: (context, lastmessage) {
+                                        return Text(lastmessage.data == null
+                                            ? 'message'
+                                            : lastmessage.data!.reversed
+                                                .toList()[0]
+                                                .message!);
+                                      }),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Divider(),
+                            );
+                          },
+                          itemCount: snapshot.data!.length)
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                }),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(

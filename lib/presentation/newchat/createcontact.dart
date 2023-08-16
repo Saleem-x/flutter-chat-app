@@ -1,10 +1,8 @@
-import 'dart:developer';
-
-import 'package:chatapp/buisnesslogic/cubit/cubit/createchat_cubit.dart';
+import 'package:chatapp/buisnesslogic/bloc/getcontacts/getcontacts_bloc.dart';
+import 'package:chatapp/buisnesslogic/cubit/createcontact/createchat_cubit.dart';
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/createuser/createuser.dart';
 import 'package:chatapp/presentation/widgets/textfieldwidget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,6 +65,10 @@ class _CreateContactState extends State<CreateContact> {
                         ),
                       ),
                     );
+
+                  context
+                      .read<GetcontactsBloc>()
+                      .add(const GetcontactsEvent.getAllContacts());
                   _emailcontroller.clear();
                   _namecontroller.clear();
                   Navigator.pop(context);
@@ -112,7 +114,8 @@ class _CreateContactState extends State<CreateContact> {
                     context.read<CreatechatCubit>().creatcontact(
                           Createuser(
                               username: _namecontroller.text,
-                              email: _emailcontroller.text),
+                              email: _emailcontroller.text,
+                              profileimg: 'no-img'),
                         );
                   },
                   child: Text(
