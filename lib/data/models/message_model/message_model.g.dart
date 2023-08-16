@@ -14,6 +14,7 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) => MessageModel(
       toEmail: json['tomail'] as String?,
       uid: json['uid'] as String?,
       chatid: json['chat-id'] as String?,
+      fromuser: json['fromuser'] as String?,
     );
 
 Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
       'tomail': instance.toEmail,
       'uid': instance.uid,
       'chat-id': instance.chatid,
+      'fromuser': instance.fromuser,
     };

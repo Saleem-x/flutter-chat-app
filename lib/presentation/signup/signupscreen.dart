@@ -5,6 +5,7 @@ import 'package:chatapp/presentation/home/homescreen.dart';
 import 'package:chatapp/presentation/widgets/textfieldwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -36,6 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: CircularProgressIndicator(),
               ),
               successstate: () {
+                ScaffoldMessenger.of(context).removeCurrentMaterialBanner();
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -43,7 +45,19 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     (route) => false);
               },
-              failedstate: () {},
+              failedstate: () {
+                ScaffoldMessenger.of(context).showMaterialBanner(
+                  MaterialBanner(
+                      backgroundColor: Colors.red,
+                      content:
+                          const Row(children: [Text('Something went Wrong')]),
+                      actions: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Iconsax.info_circle))
+                      ]),
+                );
+              },
               userexiststate: (isUserexist) {
                 if (!isUserexist) {
                   context.read<SignupBloc>().add(SignupEvent.signupevent(
