@@ -54,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
           leading: CircleAvatar(
             radius: 20,
             child: ClipOval(
-              child: widget.imageurl == 'no-img'
+              child: widget.imageurl == 'no-img' || widget.imageurl == null
                   ? Image.asset('assets/images/profiletemp.jpg')
                   : Image.network(widget.imageurl!),
             ),
@@ -136,11 +136,10 @@ class _ChatScreenState extends State<ChatScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: MessageFieldWidget(
-              tomail: widget.tomail, uniqueid: widget.uniqueid!
-              /*  widget.uniqueid ??
-                  generateUniqueId(FirebaseAuth.instance.currentUser!.email!,
-                      widget.tomail) */
-              ),
+            tomail: widget.tomail,
+            uniqueid: widget.uniqueid!,
+            username: widget.username,
+          ),
         )
       ]),
     );

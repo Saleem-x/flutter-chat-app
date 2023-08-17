@@ -5,14 +5,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 class GetAllChatRepo {
   final user = FirebaseAuth.instance.currentUser;
 
-  Stream<List<UsersModel>> getUsersStream() {
+  // Stream<List<UsersModel>> getUsersStream() {
+  //   return FirebaseFirestore.instance
+  //       .collectionGroup('chatrooms')
+  //       .snapshots()
+  //       .map((querySnapshot) {
+  //     return querySnapshot.docs
+  //         .where((doc) =>
+  //             doc.id == user!.email! || doc.data()['tomail'] == user!.email)
+  //         .map((doc) {
+  //       return UsersModel.fromJson(doc.data());
+  //     }).toList();
+  //   });
+  // }
+
+  Stream<List<UsersModel>> getUsersStream(String usermail) {
     return FirebaseFirestore.instance
-        .collectionGroup('chatrooms')
+        .collection('Chats')
         .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs
-          .where((doc) =>
-              doc.id == user!.email! || doc.data()['tomail'] == user!.email)
+        .map((qsnapshot) {
+      return qsnapshot.docs
+          .where((element) =>
+              element['frommail'] == usermail || element['tomail'] == usermail)
           .map((doc) {
         return UsersModel.fromJson(doc.data());
       }).toList();

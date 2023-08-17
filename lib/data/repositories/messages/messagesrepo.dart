@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:chatapp/data/failures/failures.dart';
 import 'package:chatapp/data/models/message_model/message_model.dart';
@@ -38,37 +39,42 @@ class MessagesRepo implements IMessageRepo {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       final user = FirebaseAuth.instance.currentUser;
-      // final uniqueid = generateUniqueId(user!.email!, message.toEmail!);
+      final fromuser =
+          await firestore.collection('users').doc(user!.email).get();
+      final fromname = fromuser.data()!['name'];
+      final touser =
+          await firestore.collection('users').doc(message.toEmail).get();
+      final toname = touser.data()!['name'];
+      log(toname);
+      firestore.collection('Chats').doc(uniqueid).set({
+        "name": fromname,
+        "toname": toname,
+        "lastmessage": message.message,
+        "frommail": user.email,
+        "tomail": message.toEmail,
+        "chat-id": uniqueid,
+        "time": '${DateTime.now().hour}:${DateTime.now().minute}'
+      });
       firestore
           .collection('Chats')
           .doc(uniqueid)
           .collection('messages')
           .add(message.toJson());
-      final touser =
-          await firestore.collection('users').doc(message.toEmail).get();
-      final name = touser.data()!['name'];
-      final profileimg = touser.data()!['profileimage'];
 
-      /*  firestore.collection('contacted').doc(message.toEmail).set({
-        "name": name,
-        "profileimage": profileimg,
-        "lastmessage": message.message,
-        "tomail": message.toEmail,
-        "time": '${DateTime.now().hour}:${DateTime.now().minute}'
-      }); */
-      await firestore
-          .collection('contacted')
-          .doc(user!.uid)
-          .collection('chatrooms')
-          .doc(user.email)
-          .set({
-        "name": name,
-        "profileimage": profileimg,
-        "lastmessage": message.message,
-        "tomail": message.toEmail,
-        "chat-id": uniqueid,
-        "time": '${DateTime.now().hour}:${DateTime.now().minute}'
-      });
+      // final profileimg = touser.data()!['profileimage'];
+      // await firestore
+      //     .collection('contacted')
+      //     .doc(user!.uid)
+      //     .collection('chatrooms')
+      //     .doc(user.email)
+      //     .set({
+      //   "name": name,
+      //   "profileimage": profileimg,
+      //   "lastmessage": message.message,
+      //   "tomail": message.toEmail,
+      //   "chat-id": uniqueid,
+      //   "time": '${DateTime.now().hour}:${DateTime.now().minute}'
+      // });
 
       return right('success');
     } catch (e) {

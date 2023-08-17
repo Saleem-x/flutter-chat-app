@@ -27,6 +27,8 @@ class SignupRepoImpl implements ISignupRepo {
         await firestore.collection('users').doc(user.email).set({
           'name': signupModel.userName,
           'profileimage': 'no-img',
+          'email': signupModel.email,
+          'userid': user.uid
         });
         return right(true);
       }

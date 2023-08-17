@@ -9,8 +9,12 @@ import 'package:iconsax/iconsax.dart';
 class MessageFieldWidget extends StatefulWidget {
   final String tomail;
   final String uniqueid;
+  final String username;
   const MessageFieldWidget(
-      {super.key, required this.tomail, required this.uniqueid});
+      {super.key,
+      required this.tomail,
+      required this.uniqueid,
+      required this.username});
 
   @override
   State<MessageFieldWidget> createState() => _MessageFieldWidgetState();
@@ -76,8 +80,8 @@ class _MessageFieldWidgetState extends State<MessageFieldWidget> {
                             toEmail: widget.tomail,
                             uid: FirebaseAuth.instance.currentUser!.uid,
                             chatid: widget.uniqueid,
-                            fromuser:
-                                FirebaseAuth.instance.currentUser!.email!),
+                            fromuser: FirebaseAuth.instance.currentUser!.email!,
+                            touser: widget.username),
                         uniqueid: widget.uniqueid),
                   );
               _messagecontroller.clear();

@@ -1,5 +1,6 @@
-import 'package:chatapp/buisnesslogic/bloc/getcontacts/getcontacts_bloc.dart';
+import 'package:chatapp/buisnesslogic/bloc/getallusers/getallusers_bloc.dart';
 import 'package:chatapp/constents/constents.dart';
+import 'package:chatapp/data/repositories/getcontacts/getallusersrepo.dart';
 import 'package:chatapp/presentation/chat/chatscreen.dart';
 import 'package:chatapp/presentation/newchat/createcontact.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,9 +13,8 @@ class NewChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context
-        .read<GetcontactsBloc>()
-        .add(const GetcontactsEvent.getAllContacts());
+    context.read<GetallusersBloc>().add(const GetallusersEvent.getallusers());
+    final getuserrepo = GetAallUsersRepo();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primarycolor,
@@ -35,11 +35,11 @@ class NewChatScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CreateContact(),
-                  ));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => const CreateContact(),
+              //     ));
             },
             icon: const Icon(
               Iconsax.user_add,
@@ -48,14 +48,15 @@ class NewChatScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<GetcontactsBloc, GetcontactsState>(
+      body: BlocBuilder<GetallusersBloc, GetallusersState>(
         builder: (context, state) {
           return state.when(
-            () => const Center(child: CircularProgressIndicator()),
-            hasContactState: (contactlist) {
-              return contactlist == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : contactlist.isEmpty
+            (alluserslist) {
+              return alluserslist == null
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : alluserslist.isEmpty
                       ? const Center(
                           child: Text('No-contacts added'),
                         )
@@ -67,12 +68,13 @@ class NewChatScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => ChatScreen(
-                                          tomail: contactlist[index].email!,
-                                          username:
-                                              contactlist[index].username!,
+                                          tomail: alluserslist[index].email!,
+                                          username: alluserslist[index].name!,
                                           imageurl:
-                                              contactlist[index].profileimg,
-                                          uniqueid: contactlist[index].chatid),
+                                              alluserslist[index].profileimage,
+                                          uniqueid:
+                                              getuserrepo.getuniquechatkey(
+                                                  alluserslist[index].useruid)),
                                     ));
                               },
                               leading: CircleAvatar(
@@ -82,8 +84,8 @@ class NewChatScreen extends StatelessWidget {
                                       'assets/images/profiletemp.jpg'),
                                 ),
                               ),
-                              title: Text(contactlist[index].username!),
-                              subtitle: Text(contactlist[index].email!),
+                              title: Text(alluserslist[index].name!),
+                              subtitle: Text(alluserslist[index].email!),
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -92,14 +94,10 @@ class NewChatScreen extends StatelessWidget {
                               child: Divider(),
                             );
                           },
-                          itemCount: contactlist.length,
+                          itemCount: alluserslist.length,
                         );
             },
-            errorstate: () => const Center(
-              child: Text(
-                'someting went wrong',
-              ),
-            ),
+            errorstate: () => const Center(),
           );
         },
       ),

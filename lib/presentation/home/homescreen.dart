@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/users_model/users_model.dart';
 import 'package:chatapp/data/repositories/getallchatsrepo/getallchatsrepo.dart';
@@ -22,6 +24,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -43,7 +46,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final user = FirebaseAuth.instance.currentUser!;
     final MessagesRepo messageRepo = MessagesRepo();
+
     // final connectivityrepo = Connectivityrepo();
     return Scaffold(
       body: CustomScrollView(
@@ -80,7 +85,8 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
           ),
           SliverToBoxAdapter(
             child: StreamBuilder<List<UsersModel>>(
-                stream: GetAllChatRepo().getUsersStream(),
+                stream: GetAllChatRepo()
+                    .getUsersStream(FirebaseAuth.instance.currentUser!.email!),
                 builder: (context, snapshot) {
                   return snapshot.connectionState == ConnectionState.active
                       ? ListView.separated(
@@ -90,12 +96,26 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
                           itemBuilder: (context, index) {
                             return ListTile(
                               onTap: () {
+                                final username =
+                                    snapshot.data![index].name == null ||
+                                            snapshot.data![index].toname == null
+                                        ? 'user'
+                                        : snapshot.data![index].frommail ==
+                                                user.email
+                                            ? snapshot.data![index].toname!
+                                            : snapshot.data![index].name!;
+
+                                final email =
+                                    snapshot.data![index].frommail == user.email
+                                        ? snapshot.data![index].tomail!
+                                        : snapshot.data![index].frommail;
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ChatScreen(
-                                      tomail: snapshot.data![index].tomail!,
-                                      username: snapshot.data![index].name!,
+                                      tomail: email!,
+                                      username: username,
                                       imageurl:
                                           snapshot.data![index].profileimage,
                                       uniqueid: snapshot.data![index].chatid ??
@@ -111,14 +131,21 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
                                 radius: 30,
                                 child: ClipOval(
                                   child: snapshot.data![index].profileimage ==
-                                          'no-img'
+                                              'no-img' ||
+                                          snapshot.data![index].profileimage ==
+                                              null
                                       ? Image.asset(
                                           'assets/images/profiletemp.jpg')
                                       : Image.network(
                                           snapshot.data![index].profileimage!),
                                 ),
                               ),
-                              title: Text(snapshot.data![index].name ?? 'user'),
+                              title: Text(snapshot.data![index].name == null ||
+                                      snapshot.data![index].toname == null
+                                  ? 'user'
+                                  : snapshot.data![index].frommail == user.email
+                                      ? snapshot.data![index].toname!
+                                      : snapshot.data![index].name!),
                               subtitle: snapshot.connectionState ==
                                       ConnectionState.waiting
                                   ? const Text('data')

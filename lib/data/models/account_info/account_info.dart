@@ -8,8 +8,12 @@ class AccountInfo {
   String? name;
   @JsonKey(name: 'profileimage')
   String? profileimage;
+  @JsonKey(name: 'email')
+  String? email;
+  @JsonKey(name: 'userid')
+  String? useruid;
 
-  AccountInfo({this.name, this.profileimage});
+  AccountInfo({this.name, this.profileimage, this.email, this.useruid});
 
   factory AccountInfo.fromJson(Map<String, dynamic> json) {
     return _$AccountInfoFromJson(json);
