@@ -18,45 +18,33 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AccountinfoEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String imageurl) imagePickevent,
     required TResult Function() getuserdetailsevent,
-    required TResult Function(AccountInfo accountInfo) updateDataEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String imageurl)? imagePickevent,
     TResult? Function()? getuserdetailsevent,
-    TResult? Function(AccountInfo accountInfo)? updateDataEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String imageurl)? imagePickevent,
     TResult Function()? getuserdetailsevent,
-    TResult Function(AccountInfo accountInfo)? updateDataEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_imagePickevent value) imagePickevent,
     required TResult Function(_getuserdetailsevent value) getuserdetailsevent,
-    required TResult Function(_updateDataEvent value) updateDataEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_imagePickevent value)? imagePickevent,
     TResult? Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult? Function(_updateDataEvent value)? updateDataEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_imagePickevent value)? imagePickevent,
     TResult Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult Function(_updateDataEvent value)? updateDataEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -78,147 +66,6 @@ class _$AccountinfoEventCopyWithImpl<$Res, $Val extends AccountinfoEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$_imagePickeventCopyWith<$Res> {
-  factory _$$_imagePickeventCopyWith(
-          _$_imagePickevent value, $Res Function(_$_imagePickevent) then) =
-      __$$_imagePickeventCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String imageurl});
-}
-
-/// @nodoc
-class __$$_imagePickeventCopyWithImpl<$Res>
-    extends _$AccountinfoEventCopyWithImpl<$Res, _$_imagePickevent>
-    implements _$$_imagePickeventCopyWith<$Res> {
-  __$$_imagePickeventCopyWithImpl(
-      _$_imagePickevent _value, $Res Function(_$_imagePickevent) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? imageurl = null,
-  }) {
-    return _then(_$_imagePickevent(
-      imageurl: null == imageurl
-          ? _value.imageurl
-          : imageurl // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_imagePickevent implements _imagePickevent {
-  const _$_imagePickevent({required this.imageurl});
-
-  @override
-  final String imageurl;
-
-  @override
-  String toString() {
-    return 'AccountinfoEvent.imagePickevent(imageurl: $imageurl)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_imagePickevent &&
-            (identical(other.imageurl, imageurl) ||
-                other.imageurl == imageurl));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, imageurl);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_imagePickeventCopyWith<_$_imagePickevent> get copyWith =>
-      __$$_imagePickeventCopyWithImpl<_$_imagePickevent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String imageurl) imagePickevent,
-    required TResult Function() getuserdetailsevent,
-    required TResult Function(AccountInfo accountInfo) updateDataEvent,
-  }) {
-    return imagePickevent(imageurl);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String imageurl)? imagePickevent,
-    TResult? Function()? getuserdetailsevent,
-    TResult? Function(AccountInfo accountInfo)? updateDataEvent,
-  }) {
-    return imagePickevent?.call(imageurl);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String imageurl)? imagePickevent,
-    TResult Function()? getuserdetailsevent,
-    TResult Function(AccountInfo accountInfo)? updateDataEvent,
-    required TResult orElse(),
-  }) {
-    if (imagePickevent != null) {
-      return imagePickevent(imageurl);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_imagePickevent value) imagePickevent,
-    required TResult Function(_getuserdetailsevent value) getuserdetailsevent,
-    required TResult Function(_updateDataEvent value) updateDataEvent,
-  }) {
-    return imagePickevent(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_imagePickevent value)? imagePickevent,
-    TResult? Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult? Function(_updateDataEvent value)? updateDataEvent,
-  }) {
-    return imagePickevent?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_imagePickevent value)? imagePickevent,
-    TResult Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult Function(_updateDataEvent value)? updateDataEvent,
-    required TResult orElse(),
-  }) {
-    if (imagePickevent != null) {
-      return imagePickevent(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _imagePickevent implements AccountinfoEvent {
-  const factory _imagePickevent({required final String imageurl}) =
-      _$_imagePickevent;
-
-  String get imageurl;
-  @JsonKey(ignore: true)
-  _$$_imagePickeventCopyWith<_$_imagePickevent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -259,9 +106,7 @@ class _$_getuserdetailsevent implements _getuserdetailsevent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String imageurl) imagePickevent,
     required TResult Function() getuserdetailsevent,
-    required TResult Function(AccountInfo accountInfo) updateDataEvent,
   }) {
     return getuserdetailsevent();
   }
@@ -269,9 +114,7 @@ class _$_getuserdetailsevent implements _getuserdetailsevent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String imageurl)? imagePickevent,
     TResult? Function()? getuserdetailsevent,
-    TResult? Function(AccountInfo accountInfo)? updateDataEvent,
   }) {
     return getuserdetailsevent?.call();
   }
@@ -279,9 +122,7 @@ class _$_getuserdetailsevent implements _getuserdetailsevent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String imageurl)? imagePickevent,
     TResult Function()? getuserdetailsevent,
-    TResult Function(AccountInfo accountInfo)? updateDataEvent,
     required TResult orElse(),
   }) {
     if (getuserdetailsevent != null) {
@@ -293,9 +134,7 @@ class _$_getuserdetailsevent implements _getuserdetailsevent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_imagePickevent value) imagePickevent,
     required TResult Function(_getuserdetailsevent value) getuserdetailsevent,
-    required TResult Function(_updateDataEvent value) updateDataEvent,
   }) {
     return getuserdetailsevent(this);
   }
@@ -303,9 +142,7 @@ class _$_getuserdetailsevent implements _getuserdetailsevent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_imagePickevent value)? imagePickevent,
     TResult? Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult? Function(_updateDataEvent value)? updateDataEvent,
   }) {
     return getuserdetailsevent?.call(this);
   }
@@ -313,9 +150,7 @@ class _$_getuserdetailsevent implements _getuserdetailsevent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_imagePickevent value)? imagePickevent,
     TResult Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult Function(_updateDataEvent value)? updateDataEvent,
     required TResult orElse(),
   }) {
     if (getuserdetailsevent != null) {
@@ -330,195 +165,42 @@ abstract class _getuserdetailsevent implements AccountinfoEvent {
 }
 
 /// @nodoc
-abstract class _$$_updateDataEventCopyWith<$Res> {
-  factory _$$_updateDataEventCopyWith(
-          _$_updateDataEvent value, $Res Function(_$_updateDataEvent) then) =
-      __$$_updateDataEventCopyWithImpl<$Res>;
-  @useResult
-  $Res call({AccountInfo accountInfo});
-}
-
-/// @nodoc
-class __$$_updateDataEventCopyWithImpl<$Res>
-    extends _$AccountinfoEventCopyWithImpl<$Res, _$_updateDataEvent>
-    implements _$$_updateDataEventCopyWith<$Res> {
-  __$$_updateDataEventCopyWithImpl(
-      _$_updateDataEvent _value, $Res Function(_$_updateDataEvent) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? accountInfo = null,
-  }) {
-    return _then(_$_updateDataEvent(
-      accountInfo: null == accountInfo
-          ? _value.accountInfo
-          : accountInfo // ignore: cast_nullable_to_non_nullable
-              as AccountInfo,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_updateDataEvent implements _updateDataEvent {
-  const _$_updateDataEvent({required this.accountInfo});
-
-  @override
-  final AccountInfo accountInfo;
-
-  @override
-  String toString() {
-    return 'AccountinfoEvent.updateDataEvent(accountInfo: $accountInfo)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_updateDataEvent &&
-            (identical(other.accountInfo, accountInfo) ||
-                other.accountInfo == accountInfo));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, accountInfo);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_updateDataEventCopyWith<_$_updateDataEvent> get copyWith =>
-      __$$_updateDataEventCopyWithImpl<_$_updateDataEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String imageurl) imagePickevent,
-    required TResult Function() getuserdetailsevent,
-    required TResult Function(AccountInfo accountInfo) updateDataEvent,
-  }) {
-    return updateDataEvent(accountInfo);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String imageurl)? imagePickevent,
-    TResult? Function()? getuserdetailsevent,
-    TResult? Function(AccountInfo accountInfo)? updateDataEvent,
-  }) {
-    return updateDataEvent?.call(accountInfo);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String imageurl)? imagePickevent,
-    TResult Function()? getuserdetailsevent,
-    TResult Function(AccountInfo accountInfo)? updateDataEvent,
-    required TResult orElse(),
-  }) {
-    if (updateDataEvent != null) {
-      return updateDataEvent(accountInfo);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_imagePickevent value) imagePickevent,
-    required TResult Function(_getuserdetailsevent value) getuserdetailsevent,
-    required TResult Function(_updateDataEvent value) updateDataEvent,
-  }) {
-    return updateDataEvent(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_imagePickevent value)? imagePickevent,
-    TResult? Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult? Function(_updateDataEvent value)? updateDataEvent,
-  }) {
-    return updateDataEvent?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_imagePickevent value)? imagePickevent,
-    TResult Function(_getuserdetailsevent value)? getuserdetailsevent,
-    TResult Function(_updateDataEvent value)? updateDataEvent,
-    required TResult orElse(),
-  }) {
-    if (updateDataEvent != null) {
-      return updateDataEvent(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _updateDataEvent implements AccountinfoEvent {
-  const factory _updateDataEvent({required final AccountInfo accountInfo}) =
-      _$_updateDataEvent;
-
-  AccountInfo get accountInfo;
-  @JsonKey(ignore: true)
-  _$$_updateDataEventCopyWith<_$_updateDataEvent> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
 mixin _$AccountinfoState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String? name, String? imageurl) $default, {
-    required TResult Function(String imageurl) imagepickedstate,
-    required TResult Function() updatesuccessstate,
-    required TResult Function() updatefailedstate,
+    required TResult Function() errorstate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String? name, String? imageurl)? $default, {
-    TResult? Function(String imageurl)? imagepickedstate,
-    TResult? Function()? updatesuccessstate,
-    TResult? Function()? updatefailedstate,
+    TResult? Function()? errorstate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String? name, String? imageurl)? $default, {
-    TResult Function(String imageurl)? imagepickedstate,
-    TResult Function()? updatesuccessstate,
-    TResult Function()? updatefailedstate,
+    TResult Function()? errorstate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_AccountinfoState value) $default, {
-    required TResult Function(_imagepickedstate value) imagepickedstate,
-    required TResult Function(_updatesuccessstate value) updatesuccessstate,
-    required TResult Function(_updatefailedstate value) updatefailedstate,
+    required TResult Function(_errorstate value) errorstate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_AccountinfoState value)? $default, {
-    TResult? Function(_imagepickedstate value)? imagepickedstate,
-    TResult? Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult? Function(_updatefailedstate value)? updatefailedstate,
+    TResult? Function(_errorstate value)? errorstate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_AccountinfoState value)? $default, {
-    TResult Function(_imagepickedstate value)? imagepickedstate,
-    TResult Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult Function(_updatefailedstate value)? updatefailedstate,
+    TResult Function(_errorstate value)? errorstate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -616,9 +298,7 @@ class _$_AccountinfoState implements _AccountinfoState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String? name, String? imageurl) $default, {
-    required TResult Function(String imageurl) imagepickedstate,
-    required TResult Function() updatesuccessstate,
-    required TResult Function() updatefailedstate,
+    required TResult Function() errorstate,
   }) {
     return $default(name, imageurl);
   }
@@ -627,9 +307,7 @@ class _$_AccountinfoState implements _AccountinfoState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String? name, String? imageurl)? $default, {
-    TResult? Function(String imageurl)? imagepickedstate,
-    TResult? Function()? updatesuccessstate,
-    TResult? Function()? updatefailedstate,
+    TResult? Function()? errorstate,
   }) {
     return $default?.call(name, imageurl);
   }
@@ -638,9 +316,7 @@ class _$_AccountinfoState implements _AccountinfoState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String? name, String? imageurl)? $default, {
-    TResult Function(String imageurl)? imagepickedstate,
-    TResult Function()? updatesuccessstate,
-    TResult Function()? updatefailedstate,
+    TResult Function()? errorstate,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -653,9 +329,7 @@ class _$_AccountinfoState implements _AccountinfoState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_AccountinfoState value) $default, {
-    required TResult Function(_imagepickedstate value) imagepickedstate,
-    required TResult Function(_updatesuccessstate value) updatesuccessstate,
-    required TResult Function(_updatefailedstate value) updatefailedstate,
+    required TResult Function(_errorstate value) errorstate,
   }) {
     return $default(this);
   }
@@ -664,9 +338,7 @@ class _$_AccountinfoState implements _AccountinfoState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_AccountinfoState value)? $default, {
-    TResult? Function(_imagepickedstate value)? imagepickedstate,
-    TResult? Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult? Function(_updatefailedstate value)? updatefailedstate,
+    TResult? Function(_errorstate value)? errorstate,
   }) {
     return $default?.call(this);
   }
@@ -675,9 +347,7 @@ class _$_AccountinfoState implements _AccountinfoState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_AccountinfoState value)? $default, {
-    TResult Function(_imagepickedstate value)? imagepickedstate,
-    TResult Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult Function(_updatefailedstate value)? updatefailedstate,
+    TResult Function(_errorstate value)? errorstate,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -700,182 +370,35 @@ abstract class _AccountinfoState implements AccountinfoState {
 }
 
 /// @nodoc
-abstract class _$$_imagepickedstateCopyWith<$Res> {
-  factory _$$_imagepickedstateCopyWith(
-          _$_imagepickedstate value, $Res Function(_$_imagepickedstate) then) =
-      __$$_imagepickedstateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String imageurl});
+abstract class _$$_errorstateCopyWith<$Res> {
+  factory _$$_errorstateCopyWith(
+          _$_errorstate value, $Res Function(_$_errorstate) then) =
+      __$$_errorstateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_imagepickedstateCopyWithImpl<$Res>
-    extends _$AccountinfoStateCopyWithImpl<$Res, _$_imagepickedstate>
-    implements _$$_imagepickedstateCopyWith<$Res> {
-  __$$_imagepickedstateCopyWithImpl(
-      _$_imagepickedstate _value, $Res Function(_$_imagepickedstate) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? imageurl = null,
-  }) {
-    return _then(_$_imagepickedstate(
-      imageurl: null == imageurl
-          ? _value.imageurl
-          : imageurl // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_imagepickedstate implements _imagepickedstate {
-  const _$_imagepickedstate({required this.imageurl});
-
-  @override
-  final String imageurl;
-
-  @override
-  String toString() {
-    return 'AccountinfoState.imagepickedstate(imageurl: $imageurl)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_imagepickedstate &&
-            (identical(other.imageurl, imageurl) ||
-                other.imageurl == imageurl));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, imageurl);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_imagepickedstateCopyWith<_$_imagepickedstate> get copyWith =>
-      __$$_imagepickedstateCopyWithImpl<_$_imagepickedstate>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? name, String? imageurl) $default, {
-    required TResult Function(String imageurl) imagepickedstate,
-    required TResult Function() updatesuccessstate,
-    required TResult Function() updatefailedstate,
-  }) {
-    return imagepickedstate(imageurl);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? name, String? imageurl)? $default, {
-    TResult? Function(String imageurl)? imagepickedstate,
-    TResult? Function()? updatesuccessstate,
-    TResult? Function()? updatefailedstate,
-  }) {
-    return imagepickedstate?.call(imageurl);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? name, String? imageurl)? $default, {
-    TResult Function(String imageurl)? imagepickedstate,
-    TResult Function()? updatesuccessstate,
-    TResult Function()? updatefailedstate,
-    required TResult orElse(),
-  }) {
-    if (imagepickedstate != null) {
-      return imagepickedstate(imageurl);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_AccountinfoState value) $default, {
-    required TResult Function(_imagepickedstate value) imagepickedstate,
-    required TResult Function(_updatesuccessstate value) updatesuccessstate,
-    required TResult Function(_updatefailedstate value) updatefailedstate,
-  }) {
-    return imagepickedstate(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_AccountinfoState value)? $default, {
-    TResult? Function(_imagepickedstate value)? imagepickedstate,
-    TResult? Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult? Function(_updatefailedstate value)? updatefailedstate,
-  }) {
-    return imagepickedstate?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_AccountinfoState value)? $default, {
-    TResult Function(_imagepickedstate value)? imagepickedstate,
-    TResult Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult Function(_updatefailedstate value)? updatefailedstate,
-    required TResult orElse(),
-  }) {
-    if (imagepickedstate != null) {
-      return imagepickedstate(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _imagepickedstate implements AccountinfoState {
-  const factory _imagepickedstate({required final String imageurl}) =
-      _$_imagepickedstate;
-
-  String get imageurl;
-  @JsonKey(ignore: true)
-  _$$_imagepickedstateCopyWith<_$_imagepickedstate> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_updatesuccessstateCopyWith<$Res> {
-  factory _$$_updatesuccessstateCopyWith(_$_updatesuccessstate value,
-          $Res Function(_$_updatesuccessstate) then) =
-      __$$_updatesuccessstateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_updatesuccessstateCopyWithImpl<$Res>
-    extends _$AccountinfoStateCopyWithImpl<$Res, _$_updatesuccessstate>
-    implements _$$_updatesuccessstateCopyWith<$Res> {
-  __$$_updatesuccessstateCopyWithImpl(
-      _$_updatesuccessstate _value, $Res Function(_$_updatesuccessstate) _then)
+class __$$_errorstateCopyWithImpl<$Res>
+    extends _$AccountinfoStateCopyWithImpl<$Res, _$_errorstate>
+    implements _$$_errorstateCopyWith<$Res> {
+  __$$_errorstateCopyWithImpl(
+      _$_errorstate _value, $Res Function(_$_errorstate) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_updatesuccessstate implements _updatesuccessstate {
-  const _$_updatesuccessstate();
+class _$_errorstate implements _errorstate {
+  const _$_errorstate();
 
   @override
   String toString() {
-    return 'AccountinfoState.updatesuccessstate()';
+    return 'AccountinfoState.errorstate()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_updatesuccessstate);
+        (other.runtimeType == runtimeType && other is _$_errorstate);
   }
 
   @override
@@ -885,35 +408,29 @@ class _$_updatesuccessstate implements _updatesuccessstate {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String? name, String? imageurl) $default, {
-    required TResult Function(String imageurl) imagepickedstate,
-    required TResult Function() updatesuccessstate,
-    required TResult Function() updatefailedstate,
+    required TResult Function() errorstate,
   }) {
-    return updatesuccessstate();
+    return errorstate();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String? name, String? imageurl)? $default, {
-    TResult? Function(String imageurl)? imagepickedstate,
-    TResult? Function()? updatesuccessstate,
-    TResult? Function()? updatefailedstate,
+    TResult? Function()? errorstate,
   }) {
-    return updatesuccessstate?.call();
+    return errorstate?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String? name, String? imageurl)? $default, {
-    TResult Function(String imageurl)? imagepickedstate,
-    TResult Function()? updatesuccessstate,
-    TResult Function()? updatefailedstate,
+    TResult Function()? errorstate,
     required TResult orElse(),
   }) {
-    if (updatesuccessstate != null) {
-      return updatesuccessstate();
+    if (errorstate != null) {
+      return errorstate();
     }
     return orElse();
   }
@@ -922,154 +439,34 @@ class _$_updatesuccessstate implements _updatesuccessstate {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_AccountinfoState value) $default, {
-    required TResult Function(_imagepickedstate value) imagepickedstate,
-    required TResult Function(_updatesuccessstate value) updatesuccessstate,
-    required TResult Function(_updatefailedstate value) updatefailedstate,
+    required TResult Function(_errorstate value) errorstate,
   }) {
-    return updatesuccessstate(this);
+    return errorstate(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_AccountinfoState value)? $default, {
-    TResult? Function(_imagepickedstate value)? imagepickedstate,
-    TResult? Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult? Function(_updatefailedstate value)? updatefailedstate,
+    TResult? Function(_errorstate value)? errorstate,
   }) {
-    return updatesuccessstate?.call(this);
+    return errorstate?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_AccountinfoState value)? $default, {
-    TResult Function(_imagepickedstate value)? imagepickedstate,
-    TResult Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult Function(_updatefailedstate value)? updatefailedstate,
+    TResult Function(_errorstate value)? errorstate,
     required TResult orElse(),
   }) {
-    if (updatesuccessstate != null) {
-      return updatesuccessstate(this);
+    if (errorstate != null) {
+      return errorstate(this);
     }
     return orElse();
   }
 }
 
-abstract class _updatesuccessstate implements AccountinfoState {
-  const factory _updatesuccessstate() = _$_updatesuccessstate;
-}
-
-/// @nodoc
-abstract class _$$_updatefailedstateCopyWith<$Res> {
-  factory _$$_updatefailedstateCopyWith(_$_updatefailedstate value,
-          $Res Function(_$_updatefailedstate) then) =
-      __$$_updatefailedstateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_updatefailedstateCopyWithImpl<$Res>
-    extends _$AccountinfoStateCopyWithImpl<$Res, _$_updatefailedstate>
-    implements _$$_updatefailedstateCopyWith<$Res> {
-  __$$_updatefailedstateCopyWithImpl(
-      _$_updatefailedstate _value, $Res Function(_$_updatefailedstate) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$_updatefailedstate implements _updatefailedstate {
-  const _$_updatefailedstate();
-
-  @override
-  String toString() {
-    return 'AccountinfoState.updatefailedstate()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_updatefailedstate);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? name, String? imageurl) $default, {
-    required TResult Function(String imageurl) imagepickedstate,
-    required TResult Function() updatesuccessstate,
-    required TResult Function() updatefailedstate,
-  }) {
-    return updatefailedstate();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? name, String? imageurl)? $default, {
-    TResult? Function(String imageurl)? imagepickedstate,
-    TResult? Function()? updatesuccessstate,
-    TResult? Function()? updatefailedstate,
-  }) {
-    return updatefailedstate?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? name, String? imageurl)? $default, {
-    TResult Function(String imageurl)? imagepickedstate,
-    TResult Function()? updatesuccessstate,
-    TResult Function()? updatefailedstate,
-    required TResult orElse(),
-  }) {
-    if (updatefailedstate != null) {
-      return updatefailedstate();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_AccountinfoState value) $default, {
-    required TResult Function(_imagepickedstate value) imagepickedstate,
-    required TResult Function(_updatesuccessstate value) updatesuccessstate,
-    required TResult Function(_updatefailedstate value) updatefailedstate,
-  }) {
-    return updatefailedstate(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_AccountinfoState value)? $default, {
-    TResult? Function(_imagepickedstate value)? imagepickedstate,
-    TResult? Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult? Function(_updatefailedstate value)? updatefailedstate,
-  }) {
-    return updatefailedstate?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_AccountinfoState value)? $default, {
-    TResult Function(_imagepickedstate value)? imagepickedstate,
-    TResult Function(_updatesuccessstate value)? updatesuccessstate,
-    TResult Function(_updatefailedstate value)? updatefailedstate,
-    required TResult orElse(),
-  }) {
-    if (updatefailedstate != null) {
-      return updatefailedstate(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _updatefailedstate implements AccountinfoState {
-  const factory _updatefailedstate() = _$_updatefailedstate;
+abstract class _errorstate implements AccountinfoState {
+  const factory _errorstate() = _$_errorstate;
 }

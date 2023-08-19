@@ -4,6 +4,7 @@ import 'package:chatapp/buisnesslogic/bloc/login/login_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/messages/messages_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/signup/signup_bloc.dart';
 import 'package:chatapp/buisnesslogic/bloc/splashscreen/splashscreen_bloc.dart';
+import 'package:chatapp/buisnesslogic/bloc/updateprofile/updateprofile_bloc.dart';
 import 'package:chatapp/buisnesslogic/cubit/createcontact/createchat_cubit.dart';
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/di/injectable.dart';
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<GetallusersBloc>(
           create: (context) => GetallusersBloc(),
+        ),
+        BlocProvider<UpdateprofileBloc>(
+          create: (context) => UpdateprofileBloc(),
         ),
       ],
       child: MaterialApp(

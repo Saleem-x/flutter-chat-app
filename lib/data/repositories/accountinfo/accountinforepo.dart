@@ -1,8 +1,12 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:chatapp/data/failures/failures.dart';
 import 'package:chatapp/data/models/account_info/account_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AccountinfoRepo {
@@ -47,6 +51,32 @@ class AccountinfoRepo {
       } else {
         return left(const MainFailures.serverfailure());
       }
+    } catch (e) {
+      return left(const MainFailures.clientfailure());
+    }
+  }
+
+  Future<Either<MainFailures, String>> updateprofileimage(
+      String imageurl) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    final storage = FirebaseStorage.instance;
+
+    final user = firebaseAuth.currentUser;
+    try {
+      String imageName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference =
+          storage.ref().child('profileimages/$imageName.jpg');
+
+      UploadTask uploadTask = storageReference.putFile(File(imageurl));
+      TaskSnapshot storageSnapshot =
+          await uploadTask.whenComplete(() => {log('completed')});
+      String imageUrl = await storageSnapshot.ref.getDownloadURL();
+      firestore
+          .collection('users')
+          .doc(user!.email)
+          .update({'profileimage': imageUrl});
+      return right(imageurl);
     } catch (e) {
       return left(const MainFailures.clientfailure());
     }

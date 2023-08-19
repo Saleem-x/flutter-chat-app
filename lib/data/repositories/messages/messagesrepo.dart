@@ -42,6 +42,7 @@ class MessagesRepo implements IMessageRepo {
       final fromuser =
           await firestore.collection('users').doc(user!.email).get();
       final fromname = fromuser.data()!['name'];
+
       final touser =
           await firestore.collection('users').doc(message.toEmail).get();
       final toname = touser.data()!['name'];
@@ -53,29 +54,13 @@ class MessagesRepo implements IMessageRepo {
         "frommail": user.email,
         "tomail": message.toEmail,
         "chat-id": uniqueid,
-        "time": '${DateTime.now().hour}:${DateTime.now().minute}'
+        "time": '${DateTime.now().hour}:${DateTime.now().minute}',
       });
       firestore
           .collection('Chats')
           .doc(uniqueid)
           .collection('messages')
           .add(message.toJson());
-
-      // final profileimg = touser.data()!['profileimage'];
-      // await firestore
-      //     .collection('contacted')
-      //     .doc(user!.uid)
-      //     .collection('chatrooms')
-      //     .doc(user.email)
-      //     .set({
-      //   "name": name,
-      //   "profileimage": profileimg,
-      //   "lastmessage": message.message,
-      //   "tomail": message.toEmail,
-      //   "chat-id": uniqueid,
-      //   "time": '${DateTime.now().hour}:${DateTime.now().minute}'
-      // });
-
       return right('success');
     } catch (e) {
       return left(const MainFailures.clientfailure());

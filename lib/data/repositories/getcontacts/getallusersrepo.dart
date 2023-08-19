@@ -32,4 +32,12 @@ class GetAallUsersRepo {
     log(uniquechatkey);
     return uniquechatkey;
   }
+
+  Stream<String> getuserprofilephotos(String email) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(email)
+        .snapshots()
+        .map((event) => event['profileimage']);
+  }
 }

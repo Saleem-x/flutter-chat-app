@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/users_model/users_model.dart';
 import 'package:chatapp/data/repositories/getallchatsrepo/getallchatsrepo.dart';
+import 'package:chatapp/data/repositories/getcontacts/getallusersrepo.dart';
 import 'package:chatapp/presentation/accountinfo/accountinfo.dart';
 import 'package:chatapp/presentation/chat/chatscreen.dart';
+import 'package:chatapp/presentation/common/skelton.dart';
 import 'package:chatapp/presentation/newchat/newchatscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +24,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -48,7 +47,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
     final size = MediaQuery.of(context).size;
     final user = FirebaseAuth.instance.currentUser!;
     final MessagesRepo messageRepo = MessagesRepo();
-
+    final getusersrepoo = GetAallUsersRepo();
     // final connectivityrepo = Connectivityrepo();
     return Scaffold(
       body: CustomScrollView(
@@ -85,16 +84,16 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
           ),
           SliverToBoxAdapter(
             child: StreamBuilder<List<UsersModel>>(
-                stream: GetAllChatRepo()
-                    .getUsersStream(FirebaseAuth.instance.currentUser!.email!),
-                builder: (context, snapshot) {
-                  return snapshot.connectionState == ConnectionState.active
-                      ? ListView.separated(
-                          padding: const EdgeInsets.all(0),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return ListTile(
+              stream: GetAllChatRepo()
+                  .getUsersStream(FirebaseAuth.instance.currentUser!.email!),
+              builder: (context, snapshot) {
+                return ListView.separated(
+                    padding: const EdgeInsets.all(0),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return snapshot.connectionState == ConnectionState.active
+                          ? ListTile(
                               onTap: () {
                                 final username =
                                     snapshot.data![index].name == null ||
@@ -127,19 +126,32 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
                                   ),
                                 );
                               },
-                              leading: CircleAvatar(
-                                radius: 30,
-                                child: ClipOval(
-                                  child: snapshot.data![index].profileimage ==
-                                              'no-img' ||
-                                          snapshot.data![index].profileimage ==
-                                              null
-                                      ? Image.asset(
-                                          'assets/images/profiletemp.jpg')
-                                      : Image.network(
-                                          snapshot.data![index].profileimage!),
-                                ),
-                              ),
+                              leading: StreamBuilder<String>(
+                                  stream: getusersrepoo.getuserprofilephotos(
+                                      snapshot.data![index].frommail ==
+                                              user.email
+                                          ? snapshot.data![index].tomail!
+                                          : snapshot.data![index].frommail!),
+                                  builder: (context, profileimage) {
+                                    return CircleAvatar(
+                                      radius: 30,
+                                      child: SizedBox.fromSize(
+                                        size: size,
+                                        child: ClipOval(
+                                          child: profileimage.data == null ||
+                                                  profileimage.data == 'no-img'
+                                              ? Image.asset(
+                                                  'assets/images/profiletemp.jpg',
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.network(
+                                                  profileimage.data!,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                        ),
+                                      ),
+                                    );
+                                  }),
                               title: Text(snapshot.data![index].name == null ||
                                       snapshot.data![index].toname == null
                                   ? 'user'
@@ -152,32 +164,56 @@ class _ChatHomeScreenState extends State<ChatHomeScreen>
                                   : StreamBuilder(
                                       stream: messageRepo.getMessageStream(
                                           snapshot.data![index].tomail!,
-                                          snapshot.data![index].chatid
-                                          /* widget.uniqueid ??
-                    generateUniqueId(
-                        FirebaseAuth.instance.currentUser!.email!,
-                        widget.tomail) */
-                                          ),
+                                          snapshot.data![index].chatid),
                                       builder: (context, lastmessage) {
-                                        return Text(lastmessage.data == null
-                                            ? 'message'
-                                            : lastmessage.data!.reversed
+                                        return lastmessage.data == null
+                                            ? const SkeltonWidget(
+                                                height: 8, width: 40)
+                                            : Text(lastmessage.data!.reversed
                                                 .toList()[0]
                                                 .message!);
                                       }),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Row(
+                                children: [
+                                  const SkeltonWidget(
+                                    height: 60,
+                                    width: 60,
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Expanded(
+                                      child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SkeltonWidget(
+                                          height: 20, width: size.width - 100),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      SkeltonWidget(
+                                          height: 20, width: size.width - 150)
+                                    ],
+                                  ))
+                                ],
+                              ),
                             );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Divider(),
-                            );
-                          },
-                          itemCount: snapshot.data!.length)
-                      : const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                }),
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Divider(),
+                      );
+                    },
+                    itemCount:
+                        snapshot.data == null ? 10 : snapshot.data!.length);
+              },
+            ),
           )
         ],
       ),

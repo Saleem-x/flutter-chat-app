@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:chatapp/constents/constents.dart';
 import 'package:chatapp/data/models/message_model/message_model.dart';
+import 'package:chatapp/data/repositories/getcontacts/getallusersrepo.dart';
 import 'package:chatapp/data/repositories/messages/messagesrepo.dart';
 import 'package:chatapp/data/repositories/userstatus/userstatusrepo.dart';
 import 'package:chatapp/presentation/chat/mesaggefieldwidget.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   final String tomail;
@@ -37,7 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final MessagesRepo messageRepo = MessagesRepo();
     final size = MediaQuery.of(context).size;
     final userstatusrepo = UserStatusRepo();
-
+    final getusersrepoo = GetAallUsersRepo();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -51,14 +53,24 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: primarycolor,
         title: ListTile(
           contentPadding: const EdgeInsets.all(0),
-          leading: CircleAvatar(
-            radius: 20,
-            child: ClipOval(
-              child: widget.imageurl == 'no-img' || widget.imageurl == null
-                  ? Image.asset('assets/images/profiletemp.jpg')
-                  : Image.network(widget.imageurl!),
-            ),
-          ),
+          leading: StreamBuilder<String>(
+              stream: getusersrepoo.getuserprofilephotos(widget.tomail),
+              builder: (context, profile) {
+                return CircleAvatar(
+                  radius: 20,
+                  child: SizedBox.fromSize(
+                    size: size,
+                    child: ClipOval(
+                      child: profile.data == 'no-img' || profile.data == null
+                          ? Image.asset('assets/images/profiletemp.jpg')
+                          : Image.network(
+                              profile.data!,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                  ),
+                );
+              }),
           title: Text(
             widget.username,
             style: kfontstyle(color: kcolorwhite),
@@ -112,7 +124,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                       ),
                                     ),
                                     Text(
-                                      element.time!,
+                                      DateFormat('h:mm a').format(
+                                          DateFormat('HH:mm')
+                                              .parse(element.time!)),
                                       style: kfontstyle(
                                         fontSize: 10,
                                         color: kcolorwhite,

@@ -16,25 +16,25 @@ class AccountinfoBloc extends Bloc<AccountinfoEvent, AccountinfoState> {
       Either<MainFailures, AccountInfo> getaccountinfo =
           await accountinfoRepo.getaccountinfo();
 
-      emit(getaccountinfo.fold((l) => const _updatefailedstate(),
+      emit(getaccountinfo.fold((l) => const AccountinfoState.errorstate(),
           (r) => _AccountinfoState(name: r.name, imageurl: r.profileimage)));
     });
-    on<_updateDataEvent>((event, emit) async {
-      Either<MainFailures, AccountInfo> getupdatedinfo =
-          await accountinfoRepo.updatedata(event.accountInfo);
+    // on<_updateDataEvent>((event, emit) async {
+    //   Either<MainFailures, AccountInfo> getupdatedinfo =
+    //       await accountinfoRepo.updatedata(event.accountInfo);
 
-      emit(getupdatedinfo.fold((l) => const _updatefailedstate(),
-          (r) => _AccountinfoState(name: r.name, imageurl: r.profileimage)));
-    });
-    on<_imagePickevent>((event, emit) async {
-      Either<MainFailures, String> pickimage =
-          await accountinfoRepo.pickimage();
-      emit(
-        pickimage.fold(
-          (l) => const _updatefailedstate(),
-          (r) => _imagepickedstate(imageurl: r),
-        ),
-      );
-    });
+    //   emit(getupdatedinfo.fold((l) => const _updatefailedstate(),
+    //       (r) => _AccountinfoState(name: r.name, imageurl: r.profileimage)));
+    // });
+    // on<_imagePickevent>((event, emit) async {
+    //   Either<MainFailures, String> pickimage =
+    //       await accountinfoRepo.pickimage();
+    //   emit(
+    //     pickimage.fold(
+    //       (l) => const _updatefailedstate(),
+    //       (r) => _imagepickedstate(imageurl: r),
+    //     ),
+    //   );
+    // });
   }
 }

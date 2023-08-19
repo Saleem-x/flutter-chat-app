@@ -15,6 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final ILoginRepo loginRepo;
   LoginBloc(this.loginRepo) : super(LoginState.initial()) {
     on<_userloginevent>((event, emit) async {
+      emit(const _loadingstate());
       Either<MainFailures, String> userlogin =
           await loginRepo.login(event.loginModel);
       emit(userlogin.fold((l) {
