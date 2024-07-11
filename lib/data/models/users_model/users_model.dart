@@ -18,6 +18,8 @@ class UsersModel {
   String? chatid;
   @JsonKey(name: 'frommail')
   String? frommail;
+  @JsonKey(name: 'fcmToken')
+  String? fcmToken;
 
   UsersModel(
       {this.name,
@@ -26,7 +28,8 @@ class UsersModel {
       this.frommail,
       this.lastmessage,
       this.tomail,
-      this.toname});
+      this.toname,
+      this.fcmToken});
 
   factory UsersModel.fromJson(Map<String, dynamic> json) {
     return _$UsersModelFromJson(json);

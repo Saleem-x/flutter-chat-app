@@ -14,6 +14,7 @@ UsersModel _$UsersModelFromJson(Map<String, dynamic> json) => UsersModel(
       lastmessage: json['lastmessage'] as String?,
       tomail: json['tomail'] as String?,
       toname: json['toname'] as String?,
+      fcmToken: json['fcmToken'] as String?,
     );
 
 Map<String, dynamic> _$UsersModelToJson(UsersModel instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$UsersModelToJson(UsersModel instance) =>
       'tomail': instance.tomail,
       'chat-id': instance.chatid,
       'frommail': instance.frommail,
+      'fcmToken': instance.fcmToken,
     };

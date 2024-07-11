@@ -12,8 +12,11 @@ class AccountInfo {
   String? email;
   @JsonKey(name: 'userid')
   String? useruid;
+  @JsonKey(name: 'fcmToken')
+  String? fcmToken;
 
-  AccountInfo({this.name, this.profileimage, this.email, this.useruid});
+  AccountInfo(
+      {this.name, this.profileimage, this.email, this.useruid, this.fcmToken});
 
   factory AccountInfo.fromJson(Map<String, dynamic> json) {
     return _$AccountInfoFromJson(json);

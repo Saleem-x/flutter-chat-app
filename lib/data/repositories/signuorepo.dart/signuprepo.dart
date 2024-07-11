@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chatapp/data/failures/failures.dart';
 import 'package:chatapp/data/models/signup/signup_model/signup_model.dart';
 import 'package:chatapp/data/repositories/repositories.dart';
@@ -18,6 +20,8 @@ class SignupRepoImpl implements ISignupRepo {
         email: signupModel.email!,
         password: signupModel.password!,
       );
+
+      // log(jsonEncode(userCredential));
       User user = userCredential.user!;
       if (userCredential.user == null) {
         return left(const MainFailures.serverfailure());
@@ -28,11 +32,12 @@ class SignupRepoImpl implements ISignupRepo {
           'name': signupModel.userName,
           'profileimage': 'no-img',
           'email': signupModel.email,
-          'userid': user.uid
+          'userid': user.uid,
         });
         return right(true);
       }
     } catch (e) {
+      log(e.toString());
       return left(const MainFailures.clientfailure());
     }
   }
@@ -42,8 +47,10 @@ class SignupRepoImpl implements ISignupRepo {
     try {
       List<String> signInMethods =
           await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      log(signInMethods.toString());
       return right(signInMethods.isNotEmpty);
     } catch (e) {
+      log(e.toString());
       return left(const MainFailures.clientfailure());
     }
   }

@@ -11,6 +11,7 @@ AccountInfo _$AccountInfoFromJson(Map<String, dynamic> json) => AccountInfo(
       profileimage: json['profileimage'] as String?,
       email: json['email'] as String?,
       useruid: json['userid'] as String?,
+      fcmToken: json['fcmToken'] as String?,
     );
 
 Map<String, dynamic> _$AccountInfoToJson(AccountInfo instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$AccountInfoToJson(AccountInfo instance) =>
       'profileimage': instance.profileimage,
       'email': instance.email,
       'userid': instance.useruid,
+      'fcmToken': instance.fcmToken,
     };

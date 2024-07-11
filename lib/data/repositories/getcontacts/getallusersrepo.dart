@@ -11,14 +11,40 @@ class GetAallUsersRepo {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       final user = FirebaseAuth.instance.currentUser;
-      final snapshot = await firestore.collection('users').get();
+      if (user == null) {
+        return left(const MainFailures.clientfailure());
+      }
 
-      List<AccountInfo> allusers = snapshot.docs
-          .where((element) => element['userid'] != user!.uid)
-          .map((doc) {
-        return AccountInfo.fromJson(doc.data());
+      // Fetch all users
+      final allUsersSnapshot = await firestore.collection('users').get();
+      List<AccountInfo> allUsers = allUsersSnapshot.docs
+          .map((doc) => AccountInfo.fromJson(doc.data()))
+          .toList();
+
+      // Fetch interacted users
+      final interactedUsersSnapshot = await firestore
+          .collection('Chats')
+          .where('frommail', isEqualTo: user.email)
+          .get();
+      final interactedUsersSnapshot2 = await firestore
+          .collection('Chats')
+          .where('tomail', isEqualTo: user.email)
+          .get();
+
+      List<String> interactedUserIds = interactedUsersSnapshot.docs
+          .map((doc) => doc['tomail'] as String)
+          .toList();
+      interactedUserIds.addAll(interactedUsersSnapshot2.docs
+          .map((doc) => doc['frommail'] as String)
+          .toList());
+
+      // Filter out the interacted users from all users
+      List<AccountInfo> uninteractedUsers = allUsers.where((account) {
+        return account.useruid != user.uid &&
+            !interactedUserIds.contains(account.email);
       }).toList();
-      return right(allusers);
+
+      return right(uninteractedUsers);
     } catch (e) {
       return left(const MainFailures.clientfailure());
     }

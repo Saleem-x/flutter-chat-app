@@ -6,6 +6,7 @@ import 'package:chatapp/data/models/account_info/account_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,6 +16,8 @@ class AccountinfoRepo {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       final user = firebaseAuth.currentUser;
+
+      log(await user!.getIdToken() ?? 'onnullaa');
       final snapshot =
           await firestore.collection('users').doc(user!.email).get();
 
@@ -63,6 +66,7 @@ class AccountinfoRepo {
     final storage = FirebaseStorage.instance;
 
     final user = firebaseAuth.currentUser;
+
     try {
       String imageName = DateTime.now().millisecondsSinceEpoch.toString();
       Reference storageReference =
